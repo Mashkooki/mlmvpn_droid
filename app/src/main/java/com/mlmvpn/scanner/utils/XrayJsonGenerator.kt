@@ -109,6 +109,27 @@ object XrayJsonGenerator {
                 put("password", config.uuid)
             })
             mainOutbound.put("settings", JSONObject().put("servers", servers))
+        } else if (config.protocol == "vmess") {
+            mainOutbound.put("protocol", "vmess")
+            val vnext = JSONArray().put(JSONObject().apply {
+                put("address", config.address)
+                put("port", config.port)
+                put("users", JSONArray().put(JSONObject().apply {
+                    put("id", config.uuid)
+                    put("alterId", config.alterId)
+                    put("security", config.vmessSecurity.ifBlank { "auto" })
+                }))
+            })
+            mainOutbound.put("settings", JSONObject().put("vnext", vnext))
+        } else if (config.protocol == "ss") {
+            mainOutbound.put("protocol", "shadowsocks")
+            val servers = JSONArray().put(JSONObject().apply {
+                put("address", config.address)
+                put("port", config.port)
+                put("method", config.method)
+                put("password", config.password)
+            })
+            mainOutbound.put("settings", JSONObject().put("servers", servers))
         }
 
         // Stream Settings
@@ -591,6 +612,27 @@ object XrayJsonGenerator {
                     put("password", config.uuid)
                 })
                 outbound.put("settings", JSONObject().put("servers", servers))
+            } else if (config.protocol == "vmess") {
+                outbound.put("protocol", "vmess")
+                val vnext = JSONArray().put(JSONObject().apply {
+                    put("address", config.address)
+                    put("port", config.port)
+                    put("users", JSONArray().put(JSONObject().apply {
+                        put("id", config.uuid)
+                        put("alterId", config.alterId)
+                        put("security", config.vmessSecurity.ifBlank { "auto" })
+                    }))
+                })
+                outbound.put("settings", JSONObject().put("vnext", vnext))
+            } else if (config.protocol == "ss") {
+                outbound.put("protocol", "shadowsocks")
+                val servers = JSONArray().put(JSONObject().apply {
+                    put("address", config.address)
+                    put("port", config.port)
+                    put("method", config.method)
+                    put("password", config.password)
+                })
+                outbound.put("settings", JSONObject().put("servers", servers))
             }
 
             // Stream Settings
@@ -759,6 +801,36 @@ object XrayJsonGenerator {
      */
     private val testPortCounter = java.util.concurrent.atomic.AtomicInteger(0)
 
+    /** Lowest and highest port a throwaway test instance may take. */
+    const val TEST_PORT_MIN = 31000
+    const val TEST_PORT_MAX = 34999
+
+    /**
+     * Ports a test instance must not take, because something long-lived is on them.
+     *
+     * Set from the user's Local Port whenever a tunnel is started. The settings screen already
+     * refuses a port that would land here, but the two defences are not redundant: a value
+     * saved by an older build, or restored from a backup, was never validated at all, and a
+     * silent port clash presents as "the delay test says every server is dead".
+     */
+    @Volatile
+    private var reserved: Set<Int> = emptySet()
+
+    fun reservePorts(localPort: Int) {
+        reserved = setOf(localPort, localPort + 10000)
+    }
+
+    private fun nextTestPort(): Int {
+        // At most one lap of the range; if every port in it were reserved (impossible with two
+        // reservations) this still terminates.
+        val span = TEST_PORT_MAX - TEST_PORT_MIN + 1
+        repeat(span) {
+            val port = TEST_PORT_MIN + (testPortCounter.getAndIncrement() % span)
+            if (port !in reserved) return port
+        }
+        return TEST_PORT_MIN
+    }
+
     /**
      * Minimal proxy-only config for native outbound-delay measurement
      * (libv2ray.measureOutboundDelay).
@@ -776,7 +848,7 @@ object XrayJsonGenerator {
      * log for numbers nobody reads per-connection.
      */
     fun generateSpeedtestConfig(config: VpnConfig): String {
-        val port = 31000 + (testPortCounter.getAndIncrement() % 4000)
+        val port = nextTestPort()
         val full = generateConfig(config, localPort = port, includeTun = false)
         return try {
             val json = JSONObject(full)

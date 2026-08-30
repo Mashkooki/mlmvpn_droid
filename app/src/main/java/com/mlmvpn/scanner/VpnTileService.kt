@@ -86,7 +86,7 @@ class VpnTileService : TileService() {
                     ?: nodes.first() // if none responded, just use the newest
 
                 val isProxyMode = prefs.getBoolean("proxy_mode", false)
-                val localPort = prefs.getString("local_port", "10808")
+                val localPort = com.mlmvpn.scanner.utils.LocalPort.getString(this@VpnTileService)
                 val intent = Intent(this@VpnTileService, MyVpnService::class.java).apply {
                     putExtra("NODE_URI", chosen.uri)
                     putExtra("NODE_ID", chosen.id)

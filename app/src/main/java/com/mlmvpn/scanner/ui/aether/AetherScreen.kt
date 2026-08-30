@@ -169,7 +169,7 @@ fun AetherScreen() {
             // Forwarding the global proxy_mode preference here would silently give the user
             // no TUN and no explanation.
             putExtra("PROXY_MODE", false)
-            putExtra("LOCAL_PORT", prefs.getString("local_port", "10808"))
+            putExtra("LOCAL_PORT", com.mlmvpn.scanner.utils.LocalPort.getString(context))
         }
         context.startService(intent)
     }

@@ -40,10 +40,12 @@ fun AppScreen() {
         context.getSharedPreferences("game_booster_prefs", android.content.Context.MODE_PRIVATE)
             .getString("pending_boost_mode", null) != null
     }
-    // VPN Gate is the landing screen: one big connect button with a server already chosen is
-    // the shortest path to "I am online". The pending-boost recovery still wins, because that
-    // path exists specifically to drop the user back where the restart interrupted them.
-    val homeTab = if (hasPendingBoost) "game" else "vpngate"
+    // Quick Connect is the landing screen: a ready-made server pool with a country picker is
+    // the shortest path to "I am online", and it needs no account, no panel and no deploy.
+    // (VPN Gate used to sit here; it is a specialist surface and now lives in the drawer.)
+    // The pending-boost recovery still wins, because that path exists specifically to drop the
+    // user back where the restart interrupted them.
+    val homeTab = if (hasPendingBoost) "game" else "quick"
     var activeTab by remember { mutableStateOf(homeTab) }
     // Real back stack (was a single `previousTab`, which broke nested navigation: opening a screen
     // FROM another overlay clobbered the one shared "previous" value, so the parent's back button
@@ -84,7 +86,7 @@ fun AppScreen() {
     //   drawer open        -> close drawer
     //   emergency/other full-screen modal open -> close it (returns to the tab underneath)
     //   a sub-screen is stacked (e.g. Settings > VPN Settings) -> go up one level
-    //   on a non-home tab  -> go to the home (Cloud) tab
+    //   on a non-home tab  -> go to the home tab
     //   on the home tab    -> ask to exit (a second back / "Exit" leaves the app)
     // Screens with their OWN internal sub-navigation (About > Changelog, Help > FAQ, the
     // setup wizard, ...) register their own BackHandler, which takes priority while shown.
@@ -95,7 +97,11 @@ fun AppScreen() {
             drawerState.isOpen -> scope.launch { drawerState.close() }
             activeModal != null -> activeModal = null
             navStack.isNotEmpty() -> goBack()
-            activeTab != "cloud" -> switchTab("cloud")
+            // Must be `homeTab`, not a hardcoded tab name. It was pinned to "cloud" while the
+            // landing screen was something else, so back on the landing screen walked SIDEWAYS
+            // into Cloud instead of offering to exit, and the exit prompt was unreachable from
+            // the one screen that is supposed to own it.
+            activeTab != homeTab -> switchTab(homeTab)
             else -> showExitDialog = true
         }
     }
@@ -271,6 +277,7 @@ fun AppScreen() {
                         Spacer(modifier = Modifier.height(16.dp))
                         CustomDrawerItem(icon = Icons.Default.Settings, text = stringResource(R.string.drawer_settings), onClick = { scope.launch { drawerState.close() }; openTab("settings") })
                         CustomDrawerItem(icon = Icons.Default.DataUsage, text = stringResource(R.string.drawer_usage), onClick = { scope.launch { drawerState.close() }; openTab("usage") })
+                        CustomDrawerItem(icon = Icons.Default.Public, text = "گیت‌وی MLM (VPN Gate)", onClick = { scope.launch { drawerState.close() }; openTab("vpngate") })
                         CustomDrawerItem(icon = Icons.Default.LocationOn, text = stringResource(R.string.drawer_fixed_ip), onClick = { scope.launch { drawerState.close() }; openTab("fixed_ip") })
                         CustomDrawerItem(icon = Icons.Default.Dns, text = stringResource(R.string.drawer_workers_list), onClick = { scope.launch { drawerState.close() }; openTab("workers_list") })
                         CustomDrawerItem(icon = Icons.Default.Shield, text = "DNS ضد تحریم شخصی", onClick = { scope.launch { drawerState.close() }; activeModal = "antisanction" })
@@ -419,6 +426,11 @@ fun AppScreen() {
                         VpnGateTab(onDismiss = { goBack() })
                     }
                 }
+                if (visitedTabs.contains("quick")) {
+                    Box(modifier = Modifier.fillMaxSize().offset(x = if (activeTab == "quick") 0.dp else 10000.dp)) {
+                        QuickConnectTab()
+                    }
+                }
             }
         }
         
@@ -518,9 +530,9 @@ fun AppScreen() {
                     }
 
                     CenterNavButton(
-                        isActive = activeTab == "vpngate",
+                        isActive = activeTab == "quick",
                         activeColor = primaryColor,
-                        onClick = { switchTab("vpngate") },
+                        onClick = { switchTab("quick") },
                         // Lifts the button so roughly 40% of it sits proud of the bar — the
                         // standard raised-FAB read, without detaching it from the surface.
                         modifier = Modifier.offset(y = (-28).dp)
@@ -679,15 +691,28 @@ fun SettingsModal(onDismiss: () -> Unit, onOpenVpnSettings: () -> Unit = {}) {
                 
                 Text(stringResource(R.string.settings_local_port), color = textColor, fontSize = 14.sp)
                 Spacer(modifier = Modifier.height(4.dp))
+                // The field used to accept anything at all. A bad number does not announce
+                // itself -- it presents as "every server tests as dead" or "the status bar never
+                // finds the country" -- so it is refused here with the actual reason, and Save
+                // stays disabled until it is fixed.
+                val localPortError = com.mlmvpn.scanner.utils.LocalPort.validate(localPort)
                 OutlinedTextField(
                     value = localPort,
                     onValueChange = { localPort = it },
                     singleLine = true,
+                    isError = localPortError != null,
+                    supportingText = {
+                        Text(
+                            localPortError ?: "برنامه از این پورت و پورت + ${com.mlmvpn.scanner.utils.LocalPort.PROBE_OFFSET} استفاده می‌کند.",
+                            color = if (localPortError != null) Color(0xFFF28B82) else Color.Gray,
+                            fontSize = 11.sp
+                        )
+                    },
                     textStyle = androidx.compose.ui.text.TextStyle(color = textColor),
                     keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = primaryColor, unfocusedBorderColor = Color.DarkGray)
                 )
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
                 Divider(color = Color.DarkGray)
                 Spacer(modifier = Modifier.height(16.dp))
@@ -839,10 +864,14 @@ fun SettingsModal(onDismiss: () -> Unit, onOpenVpnSettings: () -> Unit = {}) {
                         Text(stringResource(android.R.string.cancel), color = Color.Gray)
                     }
                     Spacer(modifier = Modifier.width(8.dp))
-                    TextButton(onClick = { 
+                    // Recomputed here rather than hoisted: the field lives inside a nested
+                    // scrolling Column, and one shared source of truth for the rule already
+                    // exists in LocalPort.
+                    val portOk = com.mlmvpn.scanner.utils.LocalPort.validate(localPort) == null
+                    TextButton(enabled = portOk, onClick = {
                         sharedPrefs.edit().putString("backend_dns", dnsServer).apply()
                         defaultPrefs.edit().putBoolean("proxy_mode", proxyMode)
-                            .putString("local_port", localPort)
+                            .putString("local_port", localPort.trim())
                             .putBoolean("allow_lan", allowLan)
                             .putBoolean("show_realtime_traffic", showRealtimeTraffic)
                             .putBoolean("enable_usage_tracking", enableUsageTracking)

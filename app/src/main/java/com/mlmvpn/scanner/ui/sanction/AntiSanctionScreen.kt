@@ -70,7 +70,7 @@ fun AntiSanctionScreen(onBack: () -> Unit) {
     fun startService(cfg: String) {
         val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         val isProxyMode = prefs.getBoolean("proxy_mode", false)
-        val localPort = prefs.getString("local_port", "10808")
+        val localPort = com.mlmvpn.scanner.utils.LocalPort.getString(context)
         val intent = Intent(context, MyVpnService::class.java).apply {
             putExtra("NODE_URI", cfg)
             putExtra("NODE_ID", AntiSanctionManager.NODE_ID)
@@ -90,7 +90,7 @@ fun AntiSanctionScreen(onBack: () -> Unit) {
     fun turnOn() {
         scope.launch {
             val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-            val localPort = prefs.getString("local_port", "10808")?.toIntOrNull() ?: 10808
+            val localPort = com.mlmvpn.scanner.utils.LocalPort.get(context)
             val cfg = AntiSanctionManager.buildConfig(context, localPort)
             if (cfg == null) {
                 toast(context, "وورکر کلادفلر پیدا نشد؛ ابتدا وورکر را بسازید")

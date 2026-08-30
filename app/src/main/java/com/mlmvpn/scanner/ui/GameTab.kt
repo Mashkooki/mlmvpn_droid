@@ -196,7 +196,7 @@ fun GameTab(onNavigateToCloud: (() -> Unit)? = null) {
 
                     isVpnBackedMode -> {
                         val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-                        prefs.getString("local_port", "10808")?.toIntOrNull() ?: 10808
+                        com.mlmvpn.scanner.utils.LocalPort.get(context)
                     }
 
                     else -> null

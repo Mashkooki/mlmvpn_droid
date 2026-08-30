@@ -89,7 +89,7 @@ fun NodesTab() {
                             putExtra("NODE_URI", node.uri)
                             putExtra("NODE_ID", node.id)
                             putExtra("PROXY_MODE", prefs.getBoolean("proxy_mode", false))
-                            putExtra("LOCAL_PORT", prefs.getString("local_port", "10808"))
+                            putExtra("LOCAL_PORT", com.mlmvpn.scanner.utils.LocalPort.getString(context))
                         }
                         context.startService(startIntent)
                         com.mlmvpn.scanner.MyVpnService.isRunning = true
@@ -248,7 +248,7 @@ fun NodesTab() {
                 withContext(kotlinx.coroutines.Dispatchers.IO) {
                     try {
                         val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-                        val localPort = prefs.getString("local_port", "10808")?.toIntOrNull() ?: 10808
+                        val localPort = com.mlmvpn.scanner.utils.LocalPort.get(context)
                         val proxy = java.net.Proxy(java.net.Proxy.Type.HTTP, java.net.InetSocketAddress("127.0.0.1", localPort + 10000))
                         val client = okhttp3.OkHttpClient.Builder()
                             .proxy(proxy)
@@ -354,7 +354,7 @@ fun NodesTab() {
             if (node != null) {
                 val prefs = PreferenceManager.getDefaultSharedPreferences(context)
                 val isProxyMode = prefs.getBoolean("proxy_mode", false)
-                val localPort = prefs.getString("local_port", "10808")
+                val localPort = com.mlmvpn.scanner.utils.LocalPort.getString(context)
 
                 val intent = Intent(context, MyVpnService::class.java).apply {
                     putExtra("NODE_URI", node.uri)
@@ -1286,7 +1286,7 @@ fun NodesTab() {
                     item {
                         val userPort = androidx.preference.PreferenceManager
                             .getDefaultSharedPreferences(context)
-                            .getString("local_port", "10808") ?: "10808"
+                            .let { com.mlmvpn.scanner.utils.LocalPort.getString(context) }
                         val portIsWrong = userPort != "10808"
                         val accent = if (portIsWrong) RedError else YellowWarn
                         Row(
@@ -1374,7 +1374,7 @@ fun NodesTab() {
                                         putExtra("NODE_URI", node.uri)
                                         putExtra("NODE_ID", node.id)
                                         putExtra("PROXY_MODE", prefs.getBoolean("proxy_mode", false))
-                                        putExtra("LOCAL_PORT", prefs.getString("local_port", "10808"))
+                                        putExtra("LOCAL_PORT", com.mlmvpn.scanner.utils.LocalPort.getString(context))
                                     }
                                     context.startService(startIntent)
                                     com.mlmvpn.scanner.MyVpnService.connectedNodeId = node.id
@@ -1802,7 +1802,7 @@ fun NodesTab() {
                                     if (node != null) {
                                         val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
                                         val isProxyMode = prefs.getBoolean("proxy_mode", false)
-                                        val localPort = prefs.getString("local_port", "10808")
+                                        val localPort = com.mlmvpn.scanner.utils.LocalPort.getString(context)
 
                                         val startIntent = Intent(context, MyVpnService::class.java).apply {
                                             putExtra("NODE_URI", node.uri)

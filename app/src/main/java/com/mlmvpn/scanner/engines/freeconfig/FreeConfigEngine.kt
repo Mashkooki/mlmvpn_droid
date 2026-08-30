@@ -87,7 +87,10 @@ object FreeConfigEngine {
 
     private fun dedupeKey(uri: String): String {
         val config = VpnConfig.parseUri(uri) ?: return uri
-        return "${config.protocol}|${config.address}|${config.port}|${config.uuid}"
+        // Shadowsocks carries no uuid, so its identity is method+password; without them two
+        // different ss accounts on one host:port would collapse into a single entry.
+        val secret = if (config.protocol == "ss") "${config.method}:${config.password}" else config.uuid
+        return "${config.protocol}|${config.address}|${config.port}|$secret"
     }
 
     /**
@@ -116,7 +119,8 @@ object FreeConfigEngine {
      * pass a bare TLS handshake, which is why a plain TCP+TLS probe wasn't accurate enough. */
     private const val DELAY_TEST_URL = "https://clients3.google.com/generate_204"
 
-    private suspend fun ensureXrayEnv(context: Context) = withContext(Dispatchers.IO) {
+    /** Also used by the quick-connect scanner, which runs the same real-delay primitive. */
+    suspend fun ensureXrayEnv(context: Context) = withContext(Dispatchers.IO) {
         try {
             for (filename in listOf("geosite.dat", "geoip.dat")) {
                 val destFile = java.io.File(context.filesDir, filename)

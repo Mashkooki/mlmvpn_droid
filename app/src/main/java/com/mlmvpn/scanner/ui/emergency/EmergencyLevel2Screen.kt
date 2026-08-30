@@ -75,7 +75,7 @@ fun EmergencyLevel2Screen(onBack: () -> Unit) {
     val startGstService: () -> Unit = {
         val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         val isProxyMode = prefs.getBoolean("proxy_mode", false)
-        val localPort = prefs.getString("local_port", "10808")
+        val localPort = com.mlmvpn.scanner.utils.LocalPort.getString(context)
         val startIntent = Intent(context, MyVpnService::class.java).apply {
             putExtra("NODE_URI", "{\"type\":\"gst\"}")
             putExtra("NODE_ID", "GST_EMERGENCY")

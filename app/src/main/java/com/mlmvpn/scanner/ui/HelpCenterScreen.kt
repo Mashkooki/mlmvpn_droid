@@ -648,6 +648,100 @@ fun getHelpArticlesFa(): List<HelpArticle> {
                 • **بعد از ساخت گواهی جدید کار نمی‌کند:** گواهی قبلی را از تنظیمات حذف و گواهی جدید را نصب کنید؛ دو گواهی هم‌نام گیج‌کننده می‌شود.
                 • **کانفیگ وصل نمی‌شود:** پورت محلی باید `10808` باشد. برنامه خودش این را تنظیم می‌کند، ولی اگر دستی عوضش کرده‌اید برگردانید.
             """.trimIndent()
+        ),
+        HelpArticle(
+            id = "quick_connect",
+            title = "۱۸. اتصال سریع — فهرست آماده‌ی سرورها و انتخاب کشور",
+            icon = Icons.Default.FlashOn,
+            content = """
+                **این بخش چیست؟**
+                «اتصال سریع» دکمه‌ی وسط نوار پایین و صفحه‌ی اولی است که با باز کردن برنامه می‌بینید. یک فهرست آماده از هزاران سرور عمومی که خود برنامه دانلود می‌کند. **هیچ اکانتی نمی‌خواهد، هیچ پنلی نباید بسازید، هیچ کانفیگی نباید دستی وارد کنید و هیچ هزینه‌ای ندارد.**
+
+                این ساده‌ترین راه وصل شدن است. بقیه‌ی بخش‌های برنامه (پنل ابری، اسکنر، نودها) وقتی به کار می‌آیند که سرور شخصی خودتان را بخواهید؛ اتصال سریع برای وقتی است که فقط می‌خواهید همین حالا آنلاین شوید.
+
+                **ساده‌ترین حالت — فقط یک لمس:**
+                برنامه را باز کنید و **دکمه‌ی بزرگ وسط صفحه** را بزنید. تمام.
+
+                • **اگر سرور ذخیره‌شده دارید:** برنامه اصلاً سراغ مخزن نمی‌رود. فقط همان فهرست خودتان را **موازی** تست می‌کند (چند ثانیه) و به سریع‌ترین سرور زنده وصل می‌شود. دوباره تست می‌شوند و به عدد قبلی اعتماد نمی‌شود، چون یک سرور ممکن است از دیروز مرده باشد.
+                • **اگر هنوز سروری ندارید:** برنامه در مخزن می‌گردد و **به اولین سرور خوبی که پیدا کند وصل می‌شود** — نه اولین سروری که صرفاً جواب می‌دهد. اگر تأخیرش زیر آستانه بود فوراً وصل می‌شود؛ اگر کند بود چند ثانیه‌ی دیگر دنبال بهترش می‌گردد و در نهایت بهترین چیزی را که پیدا کرده برمی‌دارد. آن سرور هم ذخیره می‌شود تا دفعه‌ی بعد از حالت اول استفاده کنید.
+
+                برای قطع کردن، همان دکمه را دوباره بزنید.
+
+                **دکمه‌ی اتصال چهار حالت دارد و هرکدام ظاهر خودش را دارد:**
+                • **آماده (خاکستری، آرام نفس می‌کشد):** وصل نیستید. بزنید تا وصل شوید.
+                • **در حال جست‌وجو / اتصال (آبی، کمان چرخان):** برنامه دارد کار می‌کند. زیر دکمه نوشته می‌شود دقیقاً در چه مرحله‌ای است. اگر در حال جست‌وجو بود و پشیمان شدید، دوباره بزنید تا لغو شود.
+                • **متصل (سبز، حلقه‌ی کامل و ثابت):** آنلاین هستید. حرکت ندارد، چون روی حالتی که تمام شده حرکت فقط سر و صداست.
+                • **در حال قطع (قرمز، کمان در جهت مخالف):** دارد قطع می‌شود.
+
+                **«سرورهای من» — فهرست زیر دکمه:**
+                هر سروری که تست شده و کار کرده اینجا می‌ماند، و بعد از بستن برنامه هم سر جایش است. مرتب‌شده از سریع‌ترین به کندترین.
+                • روی نام هر سرور بزنید تا مستقیم به همان وصل شوید.
+                • آیکون **چرخش** کنار هر ردیف: همان سرور را دوباره تست می‌کند.
+                • آیکون **ضربدر** کنار هر ردیف: آن سرور را حذف می‌کند.
+                • بالای فهرست، آیکون **تست شبکه**: همه را یک‌جا دوباره تست می‌کند (با نوار پیشرفت).
+                • بالای فهرست، آیکون **سطل**: می‌پرسد «فقط قطع‌شده‌ها» یا «همه».
+                • برچسب **«جدید»** یعنی تازه اضافه شده و هنوز ندیده بودیدش؛ برچسب **«قطع»** یعنی آخرین تست شکست خورده.
+
+                **مهم:** سروری که حذف می‌کنید **دیگر برنمی‌گردد** — نه در فهرست دیده می‌شود، نه در تست‌ها شرکت می‌کند، و در به‌روزرسانی‌های بعدی هم دوباره دانلود نمی‌شود. پس سرورهای قطع‌شده را با خیال راحت حذف کنید. (اگر پشیمان شدید، در صفحه‌ی «فهرست سرورها» پایین صفحه دکمه‌ی «بازگرداندن» هست.)
+
+                **صفحه‌ی «فهرست سرورها» — وقتی کشور خاصی می‌خواهید:**
+                پایین صفحه‌ی اتصال، دکمه‌ی **«فهرست سرورها و بررسی کشورها»** را بزنید.
+                ۱. روی کادر **«همه کشورها»** بزنید. فهرست پرچم‌ها باز می‌شود؛ جلوی هر کشور تعداد سرورهایش نوشته شده و بالای صفحه یک کادر **جست‌وجوی کشور** هست.
+                ۲. یکی از این دو را بزنید:
+                   • **«بررسی سریع»** — تا ۲۰ سرور سالم پیدا می‌کند و می‌ایستد. برای وقتی که فقط می‌خواهید وصل شوید.
+                   • **«بررسی همه سرورها»** — تک‌تک سرورهای آن کشور را تست می‌کند. کامل‌تر است ولی اگر کشور هزاران سرور داشته باشد چند دقیقه طول می‌کشد. هر لحظه می‌توانید «توقف» بزنید.
+                ۳. بعد از تست، دکمه‌ی سبز **«افزودن N سرور به صفحه‌ی اتصال»** همه‌ی نتیجه‌ها را به «سرورهای من» منتقل می‌کند.
+
+                در این صفحه جلوی هر سرور نوشته شده **«قبلاً تست‌شده»** یا **«جدید»**، پس اگر یک کشور را دوباره بررسی کنید، یک نگاه کافی است تا ببینید چه چیزی واقعاً اضافه شده.
+
+                **می‌توانید وسط بررسی از صفحه بیرون بروید:** جست‌وجو مستقل از صفحه اجرا می‌شود، پس دکمه‌ی برگشت فقط شما را از صفحه خارج می‌کند و بررسی در پس‌زمینه ادامه پیدا می‌کند. هر وقت برگردید، همان جست‌وجو با نتیجه‌های تا آن لحظه سر جایش است. برای تمام کردنش فقط دکمه‌ی **«توقف»** را بزنید.
+
+                **جست‌وجوی هدف‌دار — «۵۰ سرور از ۵ کشور»:**
+                پایین همان صفحه، یک کادر هست که در آن **تعداد سرور** (۱۰/۲۵/۵۰/۱۰۰) و **تعداد کشور** (۱/۳/۵/۱۰) را انتخاب می‌کنید و دکمه را می‌زنید. برنامه دقیقاً همان تعداد را می‌آورد، همه با اتصال واقعی تأییدشده، و به‌طور مساوی بین کشورها پخش‌شده — «۵۰ سرور از ۵ کشور» یعنی ۱۰ تا از هر کشور، نه ۵۰ تا که اتفاقاً همه‌شان از یک کشور باشند.
+
+                کشورها هم‌زمان بررسی می‌شوند نه یکی‌یکی، و اگر کشوری نتواند سهمش را پر کند جای خالی از کشورهای دیگر تکمیل می‌شود. کشورها هم خودکار انتخاب می‌شوند: آن‌هایی که بیشترین سرور را دارند، چون کشوری با ۱۲ سرور نمی‌تواند سهم ۱۰ تایی را مطمئن تأمین کند.
+
+                **جست‌وجو چه می‌کند و چرا دو مرحله دارد؟**
+                نوار پیشرفت دو مرحله را نشان می‌دهد:
+                • **مرحله ۱ — بررسی دسترسی:** فقط می‌بیند پورت سرور اصلاً باز است یا نه. این کار خیلی ارزان است و بیشتر سرورهای مرده همین‌جا حذف می‌شوند.
+                • **مرحله ۲ — اتصال واقعی:** فقط سرورهای بازمانده یک اتصال واقعی را امتحان می‌کنند. این مرحله لازم است چون روی اینترنت فیلترشده **بیشتر سرورها اتصال را قبول می‌کنند ولی هیچ ترافیکی رد نمی‌کنند** — تنها مرحله‌ی دوم ثابت می‌کند سرور واقعاً کار می‌کند.
+
+                سرورهایی که سریع‌تر جواب داده‌اند اول امتحان می‌شوند، پس معمولاً چند سرور خوب در همان ثانیه‌های اول پیدا می‌شود. هر لحظه می‌توانید دکمه‌ی **«توقف»** را بزنید؛ جست‌وجو تمام می‌شود و هرچه تا آن لحظه پیدا شده سر جایش می‌ماند.
+
+                **پرچم‌ها از کجا می‌آیند؟**
+                کشور هر سرور از روی **خود اسم سرور** تشخیص داده می‌شود: پرچمی که در نامش آمده، الگوهایی مثل «DE1» و «NL12»، یا نام کشور و شهر (فرانکفورت، آمستردام، استانبول و…). همه‌ی این کار روی گوشی و بدون اینترنت انجام می‌شود، برای همین پرچم‌ها فوراً ظاهر می‌شوند.
+
+                از دیتابیس IP عمداً استفاده نمی‌کنیم: روی یک فهرست ۲۸۲۷ سروری، دیتابیس IP فقط در ۳۴٪ موارد با کشور واقعی سرور می‌خواند. مثلاً آدرس‌های کلادفلر در آمریکا ثبت شده‌اند ولی از فرانکفورت جواب می‌دهند.
+
+                **علامت تیک سبز کنار اسم سرور یعنی چه؟**
+                یعنی کشور آن سرور دیگر ادعا نیست، **اندازه‌گیری شده** است. بعد از اینکه واقعاً به یک سرور وصل شدید، برنامه از داخل همان تونل از کلادفلر می‌پرسد ترافیک از کجا بیرون آمده. اگر جواب با پرچم قبلی فرق داشت، پیامی می‌بینید که آن سرور به کشور واقعی‌اش منتقل شد.
+
+                این نتیجه ذخیره می‌شود، یعنی از این به بعد آن سرور فقط زیر کشور واقعی‌اش دیده می‌شود. دلیلش این است که وقتی کسی کشوری را انتخاب می‌کند، هدفش این است که **از همان کشور بیرون بیاید** — سروری که زیر پرچم اشتباه باشد، دقیقاً همان یک چیزی را که این فهرست برایش ساخته شده خراب می‌کند.
+
+                **نوار سبز بالای فهرست بعد از اتصال:**
+                • «خروج واقعی: 🇩🇪 آلمان · FRA · …» یعنی ترافیک شما واقعاً از آلمان بیرون می‌رود.
+                • «مسیر تأیید شد (WARP)» یعنی اتصال برقرار است ولی کشور خروج از این راه قابل اثبات نیست — چون وقتی مسیر از WARP رد می‌شود، کلادفلر **عمداً کشور خود شما** را گزارش می‌کند نه کشور سرور را. در این حالت هیچ کشوری ثبت نمی‌شود تا یک نتیجه‌ی اشتباه در فهرست ننشیند.
+
+                **دکمه‌ی تازه‌سازی (بالای صفحه‌ی فهرست سرورها):**
+                فهرست نیم‌ساعت روی گوشی ذخیره می‌ماند تا هر بار باز کردن صفحه چند مگابایت دانلود نشود. اگر می‌خواهید همین حالا فهرست تازه بگیرید این دکمه را بزنید.
+
+                اگر دریافت تازه ناموفق شد، پیام زرد «فهرست ذخیره‌شده نمایش داده می‌شود» را می‌بینید و **فهرست قبلی سر جایش می‌ماند** — چون فهرست دیروز می‌تواند شما را وصل کند، ولی یک دانلود ناموفق نمی‌تواند.
+
+                **سرورها از کجا می‌آیند و هر چند وقت به‌روز می‌شوند؟**
+                فهرست از پنج منبع عمومی ساخته می‌شود که **هر ۱۵ دقیقه** به‌روز می‌شوند. چهارتای آن‌ها از یک تجمیع‌کننده می‌آید که حدود ۲۱ منبع عمومی را ادغام می‌کند و بر اساس نتیجه‌ی تست خودش دسته‌بندی می‌کند (تأییدشده، سریع، امن، همه). سرورهای تکراری بین منابع یک‌بار شمرده می‌شوند. در پایین صفحه‌ی «فهرست سرورها» می‌بینید هر منبع چند سرور داده و کدام‌شان ناموفق بوده.
+
+                پروتکل‌های پشتیبانی‌شده: **VLESS، Trojan، VMess و Shadowsocks**. (کانفیگ‌های Shadowsocks که به افزونه‌ی جانبی نیاز دارند عمداً پذیرفته نمی‌شوند، چون هسته آن‌ها را اجرا می‌کند ولی ترافیکی رد نمی‌شود.)
+
+                **مشکلات رایج:**
+                • **«هیچ سرور پاسخ‌گویی پیدا نشد»** — معمولاً یعنی کشوری که انتخاب کرده‌اید سرور سالم کمی دارد. «همه کشورها» را انتخاب کنید و دوباره بزنید.
+                • **«هیچ سروری دریافت نشد»** — دسترسی به منبع فهرست بسته است. یکی از گزینه‌های «ضد تحریم» یا کانفیگ‌های ایران را وصل کنید و بعد دکمه‌ی تازه‌سازی را بزنید.
+                • **وصل می‌شود ولی سایت باز نمی‌شود** — سرور را عوض کنید؛ فهرست عمومی است و کیفیتش تضمینی نیست. برای اتصال پایدارتر از پنل ابری خودتان استفاده کنید.
+                • **پرچم یک سرور اشتباه است** — یک بار به آن وصل شوید؛ خودش اصلاح و ثبت می‌شود.
+                • **می‌خواهم همه‌ی اصلاح‌ها پاک شود** — فهرست کشورها را باز کنید و پایین صفحه «پاک کردن کشورهای اندازه‌گیری‌شده» را بزنید.
+
+                **گیت‌وی MLM کجا رفت؟**
+                جای دکمه‌ی وسط را اتصال سریع گرفت. گیت‌وی MLM (همان VPN Gate) حالا در **منوی همبرگری** بالای صفحه است و هیچ تغییری نکرده.
+            """.trimIndent()
         )
     )
 }
@@ -1062,6 +1156,100 @@ fun getHelpArticlesEn(): List<HelpArticle> {
                 • **Stopped working after generating a new certificate:** remove the old one in Settings and install the new one; two identically named entries get confusing.
                 • **The config will not connect:** the local port must be `10808`. The app sets this itself, but restore it if you changed it manually.
             """.trimIndent()
+        ),
+        HelpArticle(
+            id = "quick_connect",
+            title = "18. Quick Connect — the ready-made server list and country picker",
+            icon = Icons.Default.FlashOn,
+            content = """
+                **What is this?**
+                Quick Connect is the centre button on the bottom bar and the first screen you see when the app opens. It carries a ready-made list of thousands of public servers that the app downloads itself. **No account, no panel to deploy, no config to paste, and no cost.**
+
+                This is the simplest way to get online. The rest of the app (cloud panel, scanner, nodes) is for when you want a server of your own; Quick Connect is for when you just want to be online right now.
+
+                **The simplest case — one tap**
+                Open the app and press the **big button in the middle of the screen**. That is all.
+
+                • **If you have saved servers:** the app does not touch the pool at all. It tests just your own list, **in parallel** (a few seconds), and connects to the fastest live one. They are re-tested rather than trusted, because a server may have died since yesterday.
+                • **If you have no servers yet:** the app searches the pool and **connects to the first good server it finds** — not the first one that merely answers. If its delay is under the threshold it connects immediately; if it is slow, it keeps looking for a few more seconds and then settles for the best it found. That server is saved, so the next press uses the first case above.
+
+                To disconnect, press the same button again.
+
+                **The connect button has four states, each with its own look**
+                • **Ready (grey, breathing slowly):** you are not connected. Press to connect.
+                • **Searching / connecting (blue, rotating arc):** the app is working. The line under the button says exactly which stage it is in. If it is searching and you change your mind, press again to cancel.
+                • **Connected (green, a full steady ring):** you are online. It does not move, because motion on a settled state is just noise.
+                • **Disconnecting (red, an arc sweeping the other way).**
+
+                **"My servers" — the list under the button**
+                Every server that has been tested and worked stays here, and is still there after the app is closed. Sorted fastest first.
+                • Tap a server's name to connect straight to it.
+                • The **refresh** icon on a row re-tests that one server.
+                • The **cross** icon on a row deletes it.
+                • The **network-check** icon in the header re-tests them all, with a progress bar.
+                • The **bin** icon in the header asks whether you mean "only the dead ones" or "all".
+                • The **"new"** badge means it was just added and you had not seen it yet; **"down"** means the last test failed.
+
+                **Important:** a server you delete **does not come back** — it is not shown, not tested, and not re-downloaded on later refreshes. So delete dead servers freely. (If you change your mind, the "restore" button is at the bottom of the Server list screen.)
+
+                **The "Server list" screen — when you want a specific country**
+                At the bottom of the connect screen, press **"Server list and country check"**.
+                1. Tap the **"All countries"** box. A flag list opens, each row showing how many servers that country has, with a **country search** box at the top.
+                2. Press one of these:
+                   • **"Quick check"** — finds up to 20 working servers and stops. For when you just want to be online.
+                   • **"Check every server"** — tests every single server in that country. More thorough, but if the country has thousands it takes minutes. You can press "Stop" at any moment.
+                3. Once tested, the green **"Add N servers to the connect screen"** button moves every result into "My servers".
+
+                On that screen each row is marked **"already tested"** or **"new"**, so re-checking a country shows at a glance what it actually added.
+
+                **You can leave the screen mid-check:** the search runs independently of the screen, so back simply takes you out of it and the check carries on in the background. Whenever you come back, the same run is there with its results so far. To end it, press **"Stop"**.
+
+                **Targeted search — "50 servers from 5 countries"**
+                Lower on the same screen there is a panel where you pick a **server count** (10/25/50/100) and a **country count** (1/3/5/10), then press the button. The app returns exactly that many, every one proven by a real connection, spread evenly across the countries — "50 servers from 5 countries" means 10 from each, not 50 that happen to all come from one.
+
+                The countries are checked concurrently rather than one after another, and a country that cannot fill its share is topped up from the others. The countries are chosen automatically: the ones with the most servers, since a country holding 12 servers cannot reliably supply a share of 10.
+
+                **What the search does, and why it has two stages**
+                The progress strip shows two stages:
+                • **Stage 1 — reachability:** it only checks whether the server's port is open at all. This is very cheap, and most dead servers are eliminated here.
+                • **Stage 2 — a real connection:** only the survivors attempt a real connection. This stage is necessary because on a filtered line **most hosts accept the connection and then carry nothing** — only stage 2 proves the server actually works.
+
+                Servers that answered fastest are tried first, so a few good ones usually appear within the first seconds. You can press **"That's enough"** at any moment; the search ends and everything found so far stays.
+
+                **Where do the flags come from?**
+                A server's country is read from **its own name**: a flag character inside the name, patterns like "DE1" and "NL12", or a country or city name (Frankfurt, Amsterdam, Istanbul and so on). All of this happens on the phone with no network request, which is why the flags appear instantly.
+
+                An IP database is deliberately not used: across a 2827-server feed it matched the server's real country only 34% of the time. Cloudflare addresses, for instance, are registered in the US but answer from Frankfurt.
+
+                **What does the green tick next to a server name mean?**
+                It means that server's country is no longer a claim — it has been **measured**. After you actually connect to a server, the app asks Cloudflare, through that same tunnel, where the traffic came out. If the answer differs from the previous flag, you get a message saying that server has been moved to its real country.
+
+                The result is stored, so from then on that server only appears under its real country. The reason: when someone picks a country, the point is to **come out in that country** — a server filed under the wrong flag breaks the one thing this list exists for.
+
+                **The green banner above the list after connecting**
+                • "Real exit: 🇩🇪 Germany · FRA · …" means your traffic really does leave from Germany.
+                • "Route verified (WARP)" means the connection is up but the exit country cannot be proven this way — when the path runs over WARP, Cloudflare **deliberately reports your own country**, not the server's. No country is recorded in that case, so a wrong result never enters the list.
+
+                **The refresh button (top of the Server list screen)**
+                The list is kept on the phone for half an hour so that opening the screen does not re-download several megabytes each time. Press this button if you want a fresh list right now.
+
+                If the fresh download fails you will see the yellow "showing the saved list" notice and **the previous list stays** — yesterday's servers can get you online, a failed download cannot.
+
+                **Where do the servers come from, and how often do they refresh?**
+                The list is built from five public sources that refresh **every 15 minutes**. Four of them come from an aggregator that merges around 21 public sources and files them by its own test results (verified, fast, secure, all). Servers appearing in more than one source are counted once. At the bottom of the Server list screen you can see how many each source contributed and which ones failed.
+
+                Supported protocols: **VLESS, Trojan, VMess and Shadowsocks**. (Shadowsocks configs needing a side plugin are deliberately refused, because the core will start them and then carry no traffic.)
+
+                **Common problems**
+                • **"No reachable server found"** — usually the country you chose has few healthy servers. Switch to "All countries" and try again.
+                • **"No servers were received"** — the list source is blocked. Connect one of the anti-sanction options or an Iran config first, then press refresh.
+                • **It connects but sites do not open** — change server; this is a public list and its quality is not guaranteed. For something more stable, use your own cloud panel.
+                • **A server's flag is wrong** — connect to it once; it corrects and records itself.
+                • **I want all corrections cleared** — open the country list and press "Clear measured countries" at the bottom.
+
+                **Where did the MLM Gateway go?**
+                Quick Connect took the centre button, so the MLM Gateway (VPN Gate) now lives in the **hamburger menu** at the top. It is otherwise unchanged.
+            """.trimIndent()
         )
     )
 }
@@ -1197,7 +1385,23 @@ fun getFaqsFa(): List<FaqItem> = listOf(
 
     FaqItem("چرا ویدیوهای یوتیوب و اینستاگرام قبلاً دیر شروع می‌شدند و حالا سریع‌تر شده‌اند؟", "چون قبلاً برنامه ترافیک QUIC (پروتکل جدیدی که یوتیوب و اینستاگرام اول امتحان می‌کنند) را داخل تونل می‌فرستاد، ولی ورکرهای کلادفلر اصلاً این نوع ترافیک را حمل نمی‌کنند. پس هر ویدیو اول چند صد میلی‌ثانیه معطل می‌ماند، شکست می‌خورد و بعد از راه معمولی امتحان می‌شد. در نسخه‌ی جدید این ترافیک سریع رد می‌شود تا مستقیم از راه درست برود. ترافیک بازی و تماس صوتی دست‌نخورده مانده است."),
 
-    FaqItem("چرا عددهای دیلی و سرعت در نسخه‌های قبلی خیلی بد نشان داده می‌شد؟", "تست دیلی یک اتصال واقعی برای هر کانفیگ باز می‌کند. قبلاً تعداد زیادی از این اتصال‌ها هم‌زمان روی یک سرور باز می‌شد که برای کلادفلر و سیستم فیلترینگ شبیه ترافیک مشکوک است و throttle می‌شود — یعنی عددهایی که می‌دیدید در واقع ازدحام خودِ تست را اندازه می‌گرفتند، نه شرایط واقعی شبکه را. این محدود شد و تست هم سبک‌تر شد، پس عددها حالا به واقعیت نزدیک‌ترند.")
+    FaqItem("چرا عددهای دیلی و سرعت در نسخه‌های قبلی خیلی بد نشان داده می‌شد؟", "تست دیلی یک اتصال واقعی برای هر کانفیگ باز می‌کند. قبلاً تعداد زیادی از این اتصال‌ها هم‌زمان روی یک سرور باز می‌شد که برای کلادفلر و سیستم فیلترینگ شبیه ترافیک مشکوک است و throttle می‌شود — یعنی عددهایی که می‌دیدید در واقع ازدحام خودِ تست را اندازه می‌گرفتند، نه شرایط واقعی شبکه را. این محدود شد و تست هم سبک‌تر شد، پس عددها حالا به واقعیت نزدیک‌ترند."),
+
+    FaqItem("«اتصال سریع» چیست و با بقیه‌ی بخش‌ها چه فرقی دارد؟", "اتصال سریع دکمه‌ی وسط نوار پایین و صفحه‌ی اول برنامه است: یک فهرست آماده از هزاران سرور عمومی که خود برنامه دانلود می‌کند. هیچ اکانتی نمی‌خواهد، پنلی نباید بسازید و کانفیگی نباید وارد کنید. فرقش با پنل ابری این است که آنجا سرور شخصی خودتان روی حساب کلادفلر شماست (پایدارتر، ولی باید یک‌بار دیپلوی کنید) و اینجا سرورهای عمومی مشترک هستند (فوری، ولی کیفیتشان تضمینی نیست). آموزش کامل در بخش آموزش‌ها، شماره ۱۸."),
+
+    FaqItem("گیت‌وی MLM (VPN Gate) از دکمه‌ی وسط حذف شده، کجاست؟", "جای دکمه‌ی وسط را «اتصال سریع» گرفت. گیت‌وی MLM حالا در منوی همبرگری بالای صفحه است، با نام «گیت‌وی MLM (VPN Gate)». خودش هیچ تغییری نکرده و همه‌ی امکاناتش سر جایش است."),
+
+    FaqItem("در اتصال سریع تیک سبز کنار اسم سرور یعنی چه؟", "یعنی کشور آن سرور دیگر ادعای فهرست نیست، اندازه‌گیری شده است. بعد از اینکه واقعاً به یک سرور وصل شدید، برنامه از داخل همان تونل از کلادفلر می‌پرسد ترافیک از کجا بیرون آمده. اگر جواب با پرچم قبلی فرق داشت، سرور برای همیشه به کشور واقعی‌اش منتقل می‌شود و به شما هم گفته می‌شود. دلیلش این است که وقتی کسی کشوری را انتخاب می‌کند، هدفش این است که از همان کشور بیرون بیاید."),
+
+    FaqItem("چرا بعد از اتصال نوشته می‌شود «مسیر تأیید شد (WARP)» و کشور را نشان نمی‌دهد؟", "چون وقتی مسیر از WARP کلادفلر رد می‌شود، کلادفلر عمداً کشور خودِ شما را گزارش می‌کند نه کشور سرور را — یعنی یک اتصال از تهران که واقعاً از فرانکفورت بیرون می‌رود، «ایران» گزارش می‌شود. برای همین در این حالت هیچ کشوری ثبت نمی‌شود، وگرنه همه‌ی سرورها اشتباهاً زیر پرچم ایران بایگانی می‌شدند. اتصال شما کاملاً سالم است، فقط کشور خروج از این راه قابل اثبات نیست."),
+
+    FaqItem("در اتصال سریع پیام «هیچ سرور پاسخ‌گویی پیدا نشد» می‌گیرم، چه کار کنم؟", "معمولاً یعنی کشوری که انتخاب کرده‌اید سرور سالم کمی دارد. کادر کشور را روی «همه کشورها» بگذارید و دوباره جست‌وجو بزنید. اگر پیام «هیچ سروری دریافت نشد» می‌آید مشکل فرق دارد: دسترسی به منبع فهرست بسته است، پس اول یکی از گزینه‌های ضد تحریم یا کانفیگ‌های ایران را وصل کنید و بعد دکمه‌ی تازه‌سازی کنار انتخاب کشور را بزنید."),
+
+    FaqItem("«پورت محلی» در تنظیمات چیست و چه عددی بگذارم؟", "پورتی است که برنامه روی خود گوشی برای عبور ترافیک باز می‌کند. پیش‌فرضش ۱۰۸۰۸ است و اگر دلیل خاصی ندارید همان را دست نزنید. نکته‌ی مهم این است که برنامه علاوه بر عددی که وارد می‌کنید، از «آن عدد + ۱۰۰۰۰» هم استفاده می‌کند (برای بررسی وضعیت اتصال و کشور). برای همین بعضی عددها با اینکه معتبر به نظر می‌رسند مشکل‌ساز می‌شوند — مثلاً ۲۱۰۰۰ باعث تداخل با بازه‌ای می‌شود که برنامه برای تست سرورها استفاده می‌کند. اگر عدد نامناسبی وارد کنید، همان‌جا زیر فیلد نوشته می‌شود مشکل چیست و تا اصلاحش نکنید دکمه‌ی ذخیره کار نمی‌کند."),
+
+    FaqItem("پورت محلی را عوض کردم و حالا همه‌ی سرورها «قطع» تست می‌شوند، چه کار کنم؟", "به تنظیمات برگردید و پورت محلی را به ۱۰۸۰۸ برگردانید. در نسخه‌های قبلی این فیلد هر عددی را قبول می‌کرد و بعضی عددها بی‌صدا با پورت‌های داخلی برنامه تداخل می‌کردند؛ نتیجه‌اش دقیقاً همین بود که تست سرورها همه را مرده نشان می‌داد یا کشور در نوار وضعیت پیدا نمی‌شد. در این نسخه چنین عددی اصلاً پذیرفته نمی‌شود، ولی اگر از نسخه‌ی قبلی مقدار بدی ذخیره شده باشد باید یک بار دستی اصلاحش کنید."),
+
+    FaqItem("چرا برای پرچم سرورها از دیتابیس IP استفاده نمی‌کنید؟", "چون دقیق نیست. روی یک فهرست ۲۸۲۷ سروری آزمایش کردیم: دیتابیس IP فقط در ۳۴٪ موارد با کشوری که خود سرور اعلام می‌کرد می‌خواند. آدرس‌های کلادفلر در آمریکا ثبت شده‌اند ولی از فرانکفورت جواب می‌دهند، و رنج‌های OVH و Oracle هم در یک کشور ثبت و از کشور دیگری سرو می‌شوند — یعنی دیتابیس می‌گوید رنج کجا ثبت شده، نه اینکه از کجا جواب می‌دهد. به‌جایش کشور را از روی اسم خود سرور می‌خوانیم (فوری و بدون اینترنت) و بعد از اتصال با اندازه‌گیری واقعی اصلاحش می‌کنیم.")
 )
 
 fun getFaqsEn(): List<FaqItem> = listOf(
@@ -1211,5 +1415,21 @@ fun getFaqsEn(): List<FaqItem> = listOf(
     FaqItem("Is there a \"Per-app proxy\" feature to select specific apps to bypass the VPN?", "Yes, this feature is available. Please go to App Settings > VPN Settings."),
     FaqItem("Why is loading videos or bots slow in Telegram or Instagram even though I'm connected?", "This is usually due to DNS or MTU settings. We've tried to improve this in newer versions, but changing the protocol (e.g., from BPB to Edge or vice versa) can help."),
 
-    FaqItem("How does the Quick Settings VPN tile work?", "You can add the 'mlmvpn' tile from your phone's Quick Settings panel (swipe down from the top → edit/add tiles). One tap toggles the VPN; when turning on, it delay-tests your most recent servers and connects to the fastest. You can change how many servers are tested (default 20) in Settings → VPN Settings. Note: the first time, connect once from inside the app to grant VPN permission.")
+    FaqItem("How does the Quick Settings VPN tile work?", "You can add the 'mlmvpn' tile from your phone's Quick Settings panel (swipe down from the top → edit/add tiles). One tap toggles the VPN; when turning on, it delay-tests your most recent servers and connects to the fastest. You can change how many servers are tested (default 20) in Settings → VPN Settings. Note: the first time, connect once from inside the app to grant VPN permission."),
+
+    FaqItem("What is \"Quick Connect\" and how is it different from the rest of the app?", "Quick Connect is the centre button on the bottom bar and the app's landing screen: a ready-made list of thousands of public servers that the app downloads itself. No account, no panel to deploy, no config to paste. The difference from the cloud panel is that there the server is your own, on your own Cloudflare account (more stable, but you have to deploy it once), while here the servers are public and shared (instant, but their quality is not guaranteed). Full walkthrough in Tutorials, number 18."),
+
+    FaqItem("The MLM Gateway (VPN Gate) is gone from the centre button — where is it?", "Quick Connect took the centre button. The MLM Gateway is now in the hamburger menu at the top, listed as \"MLM Gateway (VPN Gate)\". It is otherwise unchanged and every one of its features is where it was."),
+
+    FaqItem("In Quick Connect, what does the green tick next to a server mean?", "It means that server's country is no longer the list's claim — it has been measured. After you actually connect, the app asks Cloudflare through that same tunnel where the traffic came out. If the answer differs from the previous flag, the server moves to its real country for good and you are told. The reason: when someone picks a country, the point is to come out in that country."),
+
+    FaqItem("After connecting it says \"Route verified (WARP)\" and shows no country. Why?", "Because when the path runs over Cloudflare WARP, Cloudflare deliberately reports YOUR country rather than the server's — a session from Tehran that really does exit in Frankfurt reads as \"Iran\". So no country is recorded in that case; otherwise every server would be wrongly filed under Iran. Your connection is perfectly fine, the exit country just cannot be proven this way."),
+
+    FaqItem("Quick Connect says \"No reachable server found\". What should I do?", "Usually it means the country you picked has few healthy servers. Set the country box to \"All countries\" and search again. If the message is \"No servers were received\" the problem is different: the list source is blocked, so connect one of the anti-sanction options or an Iran config first, then press the refresh button next to the country picker."),
+
+    FaqItem("What is \"Local Port\" in settings, and what should I set it to?", "It is the port the app opens on the phone itself to carry traffic. The default is 10808 and there is no reason to change it unless you have a specific one. The thing to know is that besides the number you enter, the app also uses \"that number + 10000\" (for the connection-status and country check). That is why some numbers cause trouble despite looking valid \u2014 21000, for instance, collides with the range the app uses for testing servers. If you enter an unsuitable number, the problem is explained right under the field and Save stays disabled until you fix it."),
+
+    FaqItem("I changed the local port and now every server tests as \"down\". What do I do?", "Go back to settings and set the local port to 10808. In earlier versions this field accepted any number, and some numbers silently collided with the app's internal ports \u2014 which showed up as exactly this: every server testing as dead, or the country never appearing in the status bar. This version refuses such a number outright, but a bad value saved by an earlier version has to be corrected by hand once."),
+
+    FaqItem("Why don't you use an IP database for server flags?", "Because it is not accurate. We tested it across a 2827-server feed: an IP database agreed with the country the server itself declared only 34% of the time. Cloudflare addresses are registered in the US but answer from Frankfurt, and OVH and Oracle ranges are registered in one country and served from another — the database tells you where a range was registered, not where it answers. Instead the country is read from the server's own name (instant, no network) and then corrected by a real measurement after you connect.")
 )

@@ -197,7 +197,15 @@ class MyVpnService : VpnService() {
         
         val nodeUri = intent?.getStringExtra("NODE_URI") ?: return START_NOT_STICKY
         val isProxyMode = intent.getBooleanExtra("PROXY_MODE", false)
-        val localPort = intent.getStringExtra("LOCAL_PORT")?.toIntOrNull() ?: 10808
+        // Validated, not merely parsed: a caller could pass a number that is legal as an int but
+        // unusable as a port (see LocalPort). Falls back to the stored setting, then the default.
+        val localPort = intent.getStringExtra("LOCAL_PORT")
+            ?.takeIf { com.mlmvpn.scanner.utils.LocalPort.validate(it) == null }
+            ?.trim()?.toInt()
+            ?: com.mlmvpn.scanner.utils.LocalPort.get(this)
+        // Tell the delay tester which ports are taken, so its throwaway instances cannot land
+        // on the tunnel's own inbound or its probe.
+        com.mlmvpn.scanner.utils.XrayJsonGenerator.reservePorts(localPort)
 
         val isGameMode = intent.getBooleanExtra("GAME_MODE", false)
         if (isGameMode) {
@@ -1086,7 +1094,7 @@ class MyVpnService : VpnService() {
                     Log.d("AutoSwitch", "Found better node: ${bestNode.name} with score $bestScore. Switching...")
                     
                     val isProxyMode = prefs.getBoolean("proxy_mode", false)
-                    val localPort = prefs.getString("local_port", "10808")
+                    val localPort = com.mlmvpn.scanner.utils.LocalPort.getString(this@MyVpnService)
                     val startIntent = Intent(this@MyVpnService, MyVpnService::class.java).apply {
                         putExtra("NODE_URI", bestNode.uri)
                         putExtra("NODE_ID", bestNode.id)

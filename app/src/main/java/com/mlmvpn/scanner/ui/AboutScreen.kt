@@ -218,6 +218,101 @@ fun ChangelogModal(isFa: Boolean, onDismiss: () -> Unit) {
         if (isFa) {
             listOf(
                 ChangelogVersion(
+                    "نسخه 1.2.2",
+                    listOf(
+                        ChangelogItem(
+                            "«اتصال سریع» — صفحه‌ی اول برنامه، با انتخاب کشور",
+                            "دکمه‌ی وسط نوار پایین حالا «اتصال سریع» است و اولین چیزی است که با باز کردن برنامه می‌بینید. یک فهرست آماده از هزاران سرور عمومی که خودش دانلود می‌شود، هیچ اکانتی نمی‌خواهد، هیچ پنلی نباید بسازید و هیچ کانفیگی نباید دستی وارد کنید. کشور را از فهرست پرچم‌ها انتخاب می‌کنید (با تعداد سرورهای هر کشور جلوی نامش و یک کادر جست‌وجو)، دکمه‌ی «جست‌وجوی سرور» را می‌زنید و برنامه بین آن‌ها دنبال سرورهای سالم می‌گردد. فهرست نیم‌ساعت روی گوشی ذخیره می‌ماند، و اگر دفعه‌ی بعد دانلودش نشد همان فهرست قبلی نشان داده می‌شود — چون فهرست دیروز می‌تواند شما را وصل کند ولی یک دانلود ناموفق نمی‌تواند.",
+                            Icons.Default.FlashOn
+                        ),
+                        ChangelogItem(
+                            "پرچم هر سرور، بدون اینکه لازم باشد اول تستش کنید",
+                            "کشور هر سرور از روی خود اسمش تشخیص داده می‌شود: پرچمی که داخل نام آمده، الگوهایی مثل «DE1» و «NL12»، و بیش از ۶۰ کشور به همراه اسم شهرهایشان (فرانکفورت، آمستردام، استانبول و…). این کار روی خود گوشی و بدون هیچ درخواست اینترنتی انجام می‌شود، پس پرچم‌ها بلافاصله ظاهر می‌شوند. عمداً از دیتابیس IP استفاده نمی‌کنیم: روی یک فهرست ۲۸۲۷ سروری، دیتابیس IP فقط در ۳۴٪ موارد با کشور واقعی سرور می‌خواند — آدرس‌های کلادفلر و سرویس‌هایی مثل OVH در یک کشور ثبت شده‌اند ولی از کشور دیگری جواب می‌دهند. اسم کشور هم به فارسی نمایش داده می‌شود.",
+                            Icons.Default.Flag
+                        ),
+                        ChangelogItem(
+                            "کشور واقعی سرور بعد از اتصال اندازه‌گیری و اصلاح می‌شود",
+                            "پرچمی که فید به یک سرور می‌دهد فقط یک ادعاست. بعد از اینکه واقعاً وصل شدید، برنامه از داخل همان تونل یک درخواست به کلادفلر می‌زند و می‌پرسد ترافیک از کجا بیرون آمده. اگر جواب با ادعای فید فرق داشت، همان اندازه‌گیری برنده است: سرور برای همیشه زیر کشور واقعی‌اش می‌رود، از این به بعد وقتی آن کشور را انتخاب کنید نشان داده می‌شود، و از کشوری که اشتباه ادعا می‌کرد حذف می‌شود — و در همان لحظه هم به شما گفته می‌شود که این جابه‌جایی انجام شد. دلیلش ساده است: کسی که کشوری را انتخاب می‌کند، می‌خواهد از همان کشور بیرون بیاید. یک استثنا هم رعایت شده: اگر مسیر از WARP رد شود، کلادفلر عمداً کشور خودِ شما را گزارش می‌کند نه کشور خروجی را، پس در آن حالت فقط «مسیر تأیید شد» نوشته می‌شود و هیچ کشوری ثبت نمی‌شود. این نتیجه‌ها یک ماه نگه داشته می‌شوند (چون آدرس سرورها عوض می‌شود) و هر وقت بخواهید از داخل همان صفحه‌ی انتخاب کشور پاک‌شان می‌کنید.",
+                            Icons.Default.Verified
+                        ),
+                        ChangelogItem(
+                            "دکمه‌ی اتصال، مثل نسخه‌ی ویندوز",
+                            "به‌جای اینکه اول سرور انتخاب کنید و بعد وصل شوید، حالا یک دکمه‌ی بزرگ وسط صفحه هست که همیشه یک کار می‌کند: بزنیدش، آنلاین می‌شوید. اگر سرور ذخیره‌شده‌ای دارید سریع‌ترینشان استفاده می‌شود؛ اگر ندارید، خودش می‌گردد، سه سرور سالم پیدا می‌کند، به بهترینشان وصل می‌شود و آن دو تای دیگر را هم ذخیره می‌کند تا دفعه‌ی بعد بدون جست‌وجو وصل شوید. چهار حالت دکمه هر کدام رنگ، حرکت و نوشته‌ی خودشان را دارند: آماده (نفس می‌کشد)، در حال جست‌وجو/اتصال (کمان چرخان آبی)، متصل (حلقه‌ی سبز ثابت — روی حالتی که تمام شده حرکت فقط سر و صداست)، و در حال قطع (کمان قرمز در جهت مخالف).",
+                            Icons.Default.PowerSettingsNew
+                        ),
+                        ChangelogItem(
+                            "«سرورهای من» زیر دکمه‌ی اتصال",
+                            "سرورهایی که تستشان کرده‌اید و کار کرده‌اند، زیر دکمه‌ی اتصال می‌مانند و بعد از بستن برنامه هم سر جایشان هستند. هر ردیف دکمه‌ی تست دوباره و دکمه‌ی حذف خودش را دارد، بالای فهرست هم «تست همه» و «حذف» هست. موقع حذف از شما پرسیده می‌شود «فقط قطع‌شده‌ها» یا «همه». سرورهای تازه با برچسب «جدید» و سرورهای مرده با برچسب «قطع» مشخص می‌شوند.",
+                            Icons.Default.Bookmarks
+                        ),
+                        ChangelogItem(
+                            "صفحه‌ی «فهرست سرورها» با «بررسی همه سرورها»",
+                            "مرور کشورها از صفحه‌ی اتصال جدا شد. آنجا کشور را انتخاب می‌کنید و یا «بررسی سریع» می‌زنید (تا ۲۰ سرور سالم، برای وقتی که فقط می‌خواهید وصل شوید) یا «بررسی همه سرورها» که تک‌تک سرورهای آن کشور را تست می‌کند. بعد از تست، با یک دکمه همه‌ی نتیجه‌ها را به صفحه‌ی اتصال منتقل می‌کنید. جلوی هر سرور نوشته شده «قبلاً تست‌شده» یا «جدید»، و بالای صفحه هم نوشته شده که منابع هر ۱۵ دقیقه به‌روز می‌شوند.",
+                            Icons.Default.Dns
+                        ),
+                        ChangelogItem(
+                            "سروری که حذف کنید دیگر برنمی‌گردد",
+                            "قبلاً حذف یک سرور فقط از صفحه پاکش می‌کرد و به‌روزرسانی بعدی فهرست دوباره می‌آوردش. حالا سرورهای حذف‌شده در یک فهرست جداگانه روی گوشی ذخیره می‌شوند و موقع خواندن منابع، قبل از اینکه اصلاً وارد فهرست شوند کنار گذاشته می‌شوند — پس نه دیده می‌شوند، نه در تست‌ها شرکت می‌کنند، نه دوباره دانلود می‌شوند. شناسه‌شان آدرس واقعی سرور است نه نامش، پس اگر منبعی همان سرور را با اسم دیگری منتشر کند باز هم حذف می‌ماند. اگر پشیمان شدید، پایین صفحه‌ی فهرست سرورها دکمه‌ی «بازگرداندن» هست.",
+                            Icons.Default.DeleteSweep
+                        ),
+                        ChangelogItem(
+                            "پشتیبانی از VMess و Shadowsocks — تعداد سرورها ۲۱ برابر شد",
+                            "برنامه تا حالا فقط VLESS و Trojan را می‌خواند، پس هر کانفیگ VMess و Shadowsocks داخل منابع بی‌صدا دور ریخته می‌شد. حالا هر دو پشتیبانی می‌شوند (VMess با بلوک base64 خودش، Shadowsocks هر دو شکل رایجش — قدیمی و SIP002). کانفیگ‌های Shadowsocks که به افزونه‌ی جانبی نیاز دارند عمداً پذیرفته نمی‌شوند، چون هسته آن‌ها را اجرا می‌کند ولی ترافیک رد نمی‌شود. کنار این، چهار منبع بزرگ دیگر هم اضافه شد (یک تجمیع‌کننده که ~۲۱ منبع عمومی را هر ۱۵ دقیقه ادغام و بر اساس نتیجه‌ی تست خودش دسته‌بندی می‌کند: تأییدشده، سریع، امن، همه). نتیجه‌ی هر دو تغییر با هم: تعداد سرورهای قابل استفاده از حدود ۴۲۰ به حدود ۹۰۰۰ رسید.",
+                            Icons.Default.Storage
+                        ),
+                        ChangelogItem(
+                            "پیدا کردن سرور سالم — دو تست، ولی هم‌زمان",
+                            "جست‌وجو دو تست دارد: اول یک بررسی ارزان که فقط می‌بیند پورت سرور باز است یا نه، بعد یک اتصال واقعی. تست دوم لازم است چون روی خط فیلترشده بیشتر سرورها اتصال را قبول می‌کنند و بعد هیچ ترافیکی رد نمی‌کنند — فقط تست دوم چیزی را ثابت می‌کند. چیزی که عوض شد این است که این دو دیگر پشت سر هم اجرا نمی‌شوند. قبلاً اول کل مخزن برای دسترسی جاروب می‌شد و تازه بعدش تست واقعی شروع می‌شد؛ با مخزنی که حالا نزدیک ۹۰۰۰ سرور دارد یعنی دقیقه‌ها هیچ اتفاقی نمی‌افتاد و بعد هم اغلب اتصال برقرار نمی‌شد. حالا سرورهایی که تست اول را رد می‌کنند بلافاصله و به‌صورت موازی وارد تست واقعی می‌شوند، پس اولین نتیجه‌ی واقعی چند ثانیه بعد از فشردن دکمه حاضر است در حالی که جاروب هنوز پشت سرش ادامه دارد.",
+                            Icons.Default.Search
+                        ),
+                        ChangelogItem(
+                            "اتصال سریع، حالا واقعاً سریع",
+                            "دکمه به اولین سروری که پیدا می‌کند وصل می‌شود، **مگر اینکه کند باشد** — اولین سروری که جواب می‌دهد لزوماً سروری نیست که ارزش استفاده داشته باشد، و فرق ۳۰۰ با ۱۵۰۰ میلی‌ثانیه یعنی فرق باز شدن صفحه با کشیده شدنش. پس اگر اولین نتیجه زیر آستانه باشد فوراً وصل می‌شود، و اگر نه چند ثانیه‌ی دیگر دنبال بهترش می‌گردد و در نهایت بهترین چیزی را که پیدا کرده برمی‌دارد. نکته‌ی مهم‌تر: اگر از قبل سرور ذخیره‌شده داشته باشید، اصلاً سراغ مخزن نمی‌رود — فقط همان فهرست خودتان را موازی تست می‌کند و به سریع‌ترینشان وصل می‌شود. تست دوباره می‌شوند و به عدد قدیمی اعتماد نمی‌شود، چون یک سرور ممکن است از دیروز مرده باشد.",
+                            Icons.Default.Bolt
+                        ),
+                        ChangelogItem(
+                            "جست‌وجوی هدف‌دار: «۵۰ سرور از ۵ کشور»",
+                            "در صفحه‌ی فهرست سرورها، تعداد سرور (۱۰/۲۵/۵۰/۱۰۰) و تعداد کشور (۱/۳/۵/۱۰) را انتخاب می‌کنید و برنامه دقیقاً همان را می‌آورد — همه با اتصال واقعی تأییدشده، و به‌طور مساوی بین کشورها پخش‌شده. «۵۰ سرور از ۵ کشور» باید یعنی ۱۰ تا از هر کشور، وگرنه فقط «۵۰ سرور» است با یک فیلتر رویش و یک کشور پرجمعیت همه‌شان را تأمین می‌کند. کشورها هم‌زمان بررسی می‌شوند نه یکی‌یکی، و اگر کشوری نتواند سهمش را پر کند، جای خالی از کشورهای دیگر تکمیل می‌شود تا درخواست ۵۰ تایی با ۵۰ تا برگردد.",
+                            Icons.Default.Tune
+                        ),
+                        ChangelogItem(
+                            "«گیت‌وی MLM» به منوی کناری منتقل شد",
+                            "جای دکمه‌ی وسط را «اتصال سریع» گرفت، و گیت‌وی MLM (همان VPN Gate) حالا در منوی همبرگری بالا سمت راست است. خودش هیچ تغییری نکرده و همه‌ی امکاناتش سر جایش است.",
+                            Icons.Default.Public
+                        ),
+                        ChangelogItem(
+                            "رفع خطای «همه‌ی منابع ناموفق» در فهرست سرورها",
+                            "گاهی همه‌ی منابع پشت سر هم «ناموفق» می‌شدند و یک پیام انگلیسی نامفهوم به‌عنوان دلیلش نوشته می‌شد. علتش این بود که دانلود فهرست به خود صفحه گره خورده بود، پس اگر از صفحه بیرون می‌رفتید دانلود نصفه‌کاره لغو می‌شد — و بدتر از آن، همین لغو شدن به‌اشتباه به‌عنوان «خطای دانلود این منبع» ثبت می‌شد و برای تک‌تک منابع تکرار می‌شد. حالا دانلود مستقل از صفحه اجرا می‌شود و لغو شدن دیگر با خطای واقعی اشتباه گرفته نمی‌شود.",
+                            Icons.Default.CloudOff
+                        ),
+                        ChangelogItem(
+                            "رفع تشخیص اشتباه کشور بلافاصله بعد از اتصال",
+                            "بعضی وقت‌ها سرور اول «ایران» تشخیص داده می‌شد و بعد از قطع و وصل دوباره، کشور درستش (مثلاً سوئد) نشان داده می‌شد. علتش این بود که بررسی کشور با یک تأخیر ثابت انجام می‌شد و هیچ بررسی‌ای نمی‌کرد که آیا درخواست واقعاً از تونل رد شده یا نه؛ اگر هسته هنوز آماده نبود، جواب کشور خودِ شما بود و همان به‌عنوان کشور سرور ثبت می‌شد. حالا برنامه وقتی قطع هستید آدرس اینترنتی خودتان را به‌عنوان مبنا نگه می‌دارد و اگر جواب با آن یکی بود، می‌فهمد ترافیک از تونل رد نشده: نه ثبتش می‌کند، نه پرچم می‌گذارد، و به‌جایش می‌نویسد «اتصال برقرار است، ولی کشور خروج تأیید نشد». تا وقتی جواب واقعاً از تونل بیاید هم چند بار تلاش می‌کند.",
+                            Icons.Default.GpsOff
+                        ),
+                        ChangelogItem(
+                            "رفع اخطار پروکسی موقع عوض کردن سرور",
+                            "اگر در حالت متصل روی سرور دیگری می‌زدید، برنامه سرور جدید را اجرا می‌کرد بدون اینکه اول قبلی را ببندد. نتیجه‌اش این بود که دو هسته هم‌زمان وجود داشتند و دومی نمی‌توانست پورت محلی را بگیرد چون اولی هنوز نگهش داشته بود — همان اخطار انگلیسی که دیده بودید. بدتر اینکه بررسی وضعیت و کشور در آن حالت به تونل قبلی وصل می‌شد، که خودش یکی از دلایل تشخیص اشتباه کشور بود. حالا اتصال جدید اول اتصال قبلی را کامل می‌بندد و منتظر آزاد شدن پورت می‌ماند.",
+                            Icons.Default.SwapHoriz
+                        ),
+                        ChangelogItem(
+                            "خروج از فهرست سرورها دیگر جست‌وجو را لغو نمی‌کند",
+                            "قبلاً اگر وسط بررسی سرورها دکمه‌ی برگشت را می‌زدید، کل جست‌وجو نابود می‌شد و همه‌ی سرورهایی که تا آن لحظه پیدا شده بودند از بین می‌رفتند — روی «بررسی همه سرورها» یعنی چند دقیقه کار، فقط به‌خاطر نگاه کردن به یک صفحه‌ی دیگر. حالا جست‌وجو مستقل از صفحه اجرا می‌شود: برگشت فقط از صفحه خارج می‌شود، جست‌وجو در پس‌زمینه ادامه دارد، و هر وقت برگردید همان جست‌وجو با نتیجه‌های تا آن لحظه سر جایش است. توقف فقط با دکمه‌ی «توقف» انجام می‌شود.",
+                            Icons.Default.ArrowBack
+                        ),
+                        ChangelogItem(
+                            "اصلاح تنظیم «پورت محلی» — قبلاً هر عددی را قبول می‌کرد",
+                            "این فیلد هیچ بررسی‌ای روی چیزی که وارد می‌کردید نداشت، و مشکل‌ساز بودنش هیچ‌وقت اعلام نمی‌شد. برنامه علاوه بر پورتی که وارد می‌کنید، از «پورت + ۱۰۰۰۰» هم استفاده می‌کند. یعنی مثلاً ۲۱۰۰۰ باعث می‌شد پورت دوم روی ۳۱۰۰۰ بیفتد که همان بازه‌ای است که برنامه برای تست سرورها استفاده می‌کند، و هر عددی بالای ۵۵۵۳۵ باعث می‌شد پورت دوم اصلاً وجود نداشته باشد. نتیجه‌اش این بود که «همه‌ی سرورها مرده تست می‌شوند» یا «کشور در نوار وضعیت پیدا نمی‌شود» — که هیچ ربطی به پورت به نظر نمی‌رسید. حالا اگر عدد نامناسبی وارد کنید، دقیقاً همان‌جا نوشته می‌شود مشکل چیست و تا اصلاحش نکنید دکمه‌ی ذخیره کار نمی‌کند. همه‌ی بخش‌های برنامه هم از یک قانون واحد پیروی می‌کنند و تست سرورها دیگر نمی‌تواند روی پورت تونل فعال بنشیند.",
+                            Icons.Default.SettingsEthernet
+                        ),
+                        ChangelogItem(
+                            "رفع ایراد دکمه‌ی برگشت در صفحه‌ی اول",
+                            "دکمه‌ی برگشت گوشی در صفحه‌ی اول به‌جای اینکه سؤال خروج را نشان بدهد، کاربر را به تب «ابری» می‌برد؛ یعنی از خودِ صفحه‌ی اول اصلاً نمی‌شد با دکمه‌ی برگشت از برنامه خارج شد. حالا درست شده.",
+                            Icons.Default.ArrowBack
+                        ),
+                    )
+                ),
+                ChangelogVersion(
                     "نسخه 1.2.1",
                     listOf(
                         ChangelogItem(
@@ -810,6 +905,101 @@ fun ChangelogModal(isFa: Boolean, onDismiss: () -> Unit) {
             )
         } else {
             listOf(
+                ChangelogVersion(
+                    "Version 1.2.2",
+                    listOf(
+                        ChangelogItem(
+                            "\"Quick Connect\" — the app's landing screen, with a country picker",
+                            "The centre button on the bottom bar is now Quick Connect, and it is the first thing you see when the app opens. It carries a ready-made list of thousands of public servers that downloads itself: no account, no panel to deploy, no config to paste. You pick a country from a flag list (each row showing how many servers it has, with a search box), press \"Find a server\", and the app hunts through them for ones that actually work. The list is kept on the phone for half an hour, and if a later download fails the previous list is shown instead — yesterday's servers can get you online, a failed download cannot.",
+                            Icons.Default.FlashOn
+                        ),
+                        ChangelogItem(
+                            "Every server gets a flag without being tested first",
+                            "A server's country is read out of its own name: a flag character inside the name, patterns like \"DE1\" and \"NL12\", and over 60 countries along with their city names (Frankfurt, Amsterdam, Istanbul and so on). This happens on the phone with no network request at all, so flags appear immediately. An IP database is deliberately not used: across a 2827-server feed it agreed with the server's real country only 34% of the time — Cloudflare addresses and hosts like OVH are registered in one country and answer from another. Country names are shown in Persian.",
+                            Icons.Default.Flag
+                        ),
+                        ChangelogItem(
+                            "A server's real country is measured after connecting, and corrected",
+                            "The flag a feed gives a server is only a claim. Once you are actually connected, the app makes a request to Cloudflare through that same tunnel and asks where the traffic came out. If the answer differs from the claim, the measurement wins: the server moves under its real country for good, shows up when you pick that country from then on, and disappears from the one it was falsely claiming — and you are told at that moment that the move happened. The reason is simple: someone who picks a country wants to come out in it. One exception is respected: when the path runs over WARP, Cloudflare reports YOUR country by design rather than the exit's, so that case is shown only as \"route verified\" and no country is recorded. Readings are kept for a month (server addresses get reassigned) and can be cleared any time from the country picker itself.",
+                            Icons.Default.Verified
+                        ),
+                        ChangelogItem(
+                            "A connect button, like the Windows app",
+                            "Instead of picking a server first and connecting second, there is now one big button in the middle of the screen that always means the same thing: press it and you end up online. If you have saved servers it uses the fastest; if you have none it goes looking, finds three working ones, connects to the best and saves the other two so the next press needs no search at all. Its four states each get their own colour, motion and label: ready (breathing), searching/connecting (a rotating blue arc), connected (a steady green ring — motion on a settled state is just noise), and disconnecting (a red arc sweeping the other way).",
+                            Icons.Default.PowerSettingsNew
+                        ),
+                        ChangelogItem(
+                            "\"My servers\" under the connect button",
+                            "Servers you have tested and that worked stay under the connect button, and are still there after the app is closed. Each row has its own re-test and delete buttons, and the list header carries \"test all\" and \"delete\". Deleting asks whether you mean \"only the dead ones\" or \"all\". New entries are marked \"new\" and dead ones \"down\".",
+                            Icons.Default.Bookmarks
+                        ),
+                        ChangelogItem(
+                            "A \"Server list\" screen with \"Check every server\"",
+                            "Browsing countries is now separate from the connect screen. There you pick a country and either press \"Quick check\" (up to 20 working servers, for when you just want to be online) or \"Check every server\", which tests every single server in that country. Once tested, one button moves all the results onto the connect screen. Each row says whether it was \"already tested\" or is \"new\", and the header states that the sources refresh every 15 minutes.",
+                            Icons.Default.Dns
+                        ),
+                        ChangelogItem(
+                            "A server you delete does not come back",
+                            "Deleting a server used to only clear it from the screen, and the next list refresh brought it straight back. Deleted servers are now kept in a list of their own on the phone and dropped while the sources are being read, before they can enter the list at all — so they are not shown, not tested, and not re-downloaded. They are identified by the server's real address rather than its name, so a source republishing the same server under a different name does not resurrect it. If you change your mind, there is a \"restore\" button at the bottom of the server list screen.",
+                            Icons.Default.DeleteSweep
+                        ),
+                        ChangelogItem(
+                            "VMess and Shadowsocks support — 21x more servers",
+                            "The app read only VLESS and Trojan, so every VMess and Shadowsocks config in the sources was silently thrown away. Both are now supported (VMess with its own base64 blob, Shadowsocks in both of its common spellings — legacy and SIP002). Shadowsocks configs that need a side plugin are deliberately refused, because the core will start them and then carry no traffic. Alongside this, four more large sources were added (an aggregator that merges ~21 public sources every 15 minutes and files them by its own test results: verified, fast, secure, all). Between the two changes, the usable server count went from about 420 to about 9000.",
+                            Icons.Default.Storage
+                        ),
+                        ChangelogItem(
+                            "Finding a working server — two tests, but at the same time",
+                            "The search runs two tests: a cheap check of whether the server's port is open at all, then a real connection. The second is necessary because on a filtered line most hosts accept the connection and then carry nothing — only that test proves anything. What changed is that the two no longer run one after the other. The first version swept the whole pool for reachability and only then began real-testing; with a pool now near 9000 servers that meant minutes of nothing happening, usually ending in no connection at all. Servers that pass the cheap check now flow straight into the real test in parallel, so the first genuine result is ready within seconds of pressing the button while the sweep continues behind it.",
+                            Icons.Default.Search
+                        ),
+                        ChangelogItem(
+                            "Quick Connect is now actually quick",
+                            "The button connects to the first server it finds, **unless that server is slow** — the first host to answer is not necessarily one worth using, and the difference between 300ms and 1500ms is the difference between a page loading and a page crawling. So a first result under the threshold connects immediately, and anything worse buys a few more seconds of looking before it settles for the best it found. More importantly: if you already have saved servers it does not touch the pool at all — it tests just your own list in parallel and connects to the fastest. They are re-tested rather than trusted, because a saved number can be hours old and the server may have died since.",
+                            Icons.Default.Bolt
+                        ),
+                        ChangelogItem(
+                            "Targeted search: \"50 servers from 5 countries\"",
+                            "On the server list screen you pick a server count (10/25/50/100) and a country count (1/3/5/10) and get exactly that — every result proven by a real connection, spread evenly across the countries. \"50 from 5 countries\" has to mean 10 from each, or it is just \"50 servers\" with a filter on top and one popular country supplies all of them. The countries are swept concurrently rather than one after another, and a country that cannot fill its share is topped up from the others so a request for 50 comes back with 50.",
+                            Icons.Default.Tune
+                        ),
+                        ChangelogItem(
+                            "\"MLM Gateway\" moved to the side menu",
+                            "Quick Connect took the centre button, so the MLM Gateway (VPN Gate) now lives in the hamburger menu at the top. It is otherwise unchanged and every one of its features is where it was.",
+                            Icons.Default.Public
+                        ),
+                        ChangelogItem(
+                            "Fixed \"all sources failed\" in the server list",
+                            "Sometimes every source in a row reported \"failed\" with an unreadable English message as the reason. The download of the list was tied to the screen itself, so leaving the screen cancelled it half-way \u2014 and worse, that cancellation was mistakenly recorded as \"this source's download error\", repeated for every source in turn. The download now runs independently of the screen, and a cancellation is no longer mistaken for a real failure.",
+                            Icons.Default.CloudOff
+                        ),
+                        ChangelogItem(
+                            "Fixed the wrong country right after connecting",
+                            "A server would sometimes be identified as \"Iran\" at first and then show its real country (Sweden, say) after a disconnect and reconnect. The country check ran on a fixed delay and never verified that the request had actually gone through the tunnel; if the core was not ready yet, the answer was your own country, and that was recorded as the server's. The app now keeps your own internet address as a baseline while disconnected, and if the answer matches it, it knows the traffic did not go through the tunnel: it is not recorded, no flag is set, and it says \"connected, but the exit country was not verified\" instead. It also retries until the answer genuinely comes from the tunnel.",
+                            Icons.Default.GpsOff
+                        ),
+                        ChangelogItem(
+                            "Fixed the proxy warning when switching servers",
+                            "Tapping another server while connected started the new one without closing the old one first. Two cores then existed at once and the second could not take the local port because the first still held it \u2014 the English warning you saw. Worse, the status and country check would then be talking to the previous tunnel, which was one of the causes of the wrong country. Connecting now fully closes the previous connection and waits for the port to be released.",
+                            Icons.Default.SwapHoriz
+                        ),
+                        ChangelogItem(
+                            "Leaving the server list no longer cancels the search",
+                            "Pressing back mid-check used to destroy the whole search and lose every server found so far — on \"check every server\" that is minutes of work, lost to looking at another screen. The search now runs independently of the screen: back simply leaves, the search carries on in the background, and returning finds the same run with its results intact. Stopping is done only with the \"stop\" button.",
+                            Icons.Default.ArrowBack
+                        ),
+                        ChangelogItem(
+                            "Fixed the Local Port setting — it used to accept any number at all",
+                            "The field did no checking of what you typed, and a bad value never announced itself. Besides the port you enter, the app also uses \"port + 10000\". So 21000 put that second port on 31000 — the range the app uses for testing servers — and anything above 55535 meant the second port could not exist at all. The result was \"every server tests as dead\" or \"the status bar never finds the country\", neither of which looks like a port problem. Now an unsuitable number is explained right there and Save stays disabled until it is fixed. Every part of the app follows the same single rule, and server testing can no longer land on the port a live tunnel is holding.",
+                            Icons.Default.SettingsEthernet
+                        ),
+                        ChangelogItem(
+                            "Fixed the back button on the landing screen",
+                            "On the landing screen the phone's back button moved sideways into the Cloud tab instead of offering to exit, which meant the app could not be left with back from the one screen that is supposed to own that. Fixed.",
+                            Icons.Default.ArrowBack
+                        ),
+                    )
+                ),
                 ChangelogVersion(
                     "Version 1.2.1",
                     listOf(
