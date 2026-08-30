@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -441,36 +442,70 @@ private fun ResultRow(node: QuickNode, alreadySaved: Boolean, onDelete: () -> Un
     }
 }
 
-/** Live progress for the two-stage sweep. */
+/**
+ * Live progress for the sweep.
+ *
+ * Two bars, not one. The reachability probe and the real-connection test run concurrently, so
+ * a single bar fed from whichever reported last jumps back and forth between two unrelated
+ * fractions several times a second. Each stage gets its own bar and its own denominator:
+ * stage 1 counts against every candidate, stage 2 against the hosts stage 1 has found so far.
+ * That second denominator grows while the run is going, which is exactly why it cannot share a
+ * track with the first.
+ */
 @Composable
 private fun ScanStrip(p: QuickScanner.Progress, label: String, running: Boolean) {
-    val text = when (p.stage) {
-        QuickScanner.Stage.TCP -> "مرحله ۱ از ۲ — بررسی دسترسی: ${p.tested} از ${p.total} · ${p.open} پاسخ‌گو"
-        QuickScanner.Stage.DELAY -> "مرحله ۲ از ۲ — اتصال واقعی: ${p.tested} از ${p.total} · ${p.found} سالم"
-        QuickScanner.Stage.DONE -> when {
-            p.empty -> "هیچ سرور پاسخ‌گویی پیدا نشد."
-            p.stopped -> "متوقف شد — ${p.found} سرور سالم نگه داشته شد."
-            else -> "${p.found} سرور سالم پیدا شد."
-        }
-        QuickScanner.Stage.IDLE -> ""
-    }
-    val fraction = if (p.total > 0 && p.stage != QuickScanner.Stage.DONE) {
-        (p.tested.toFloat() / p.total).coerceIn(0f, 1f)
-    } else 1f
+    val done = p.stage == QuickScanner.Stage.DONE
 
     Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp)) {
         if (label.isNotBlank()) {
             Text(
-                if (running) label else "$label — پایان یافت",
+                if (running) label else "$label \u2014 \u067e\u0627\u06cc\u0627\u0646 \u06cc\u0627\u0641\u062a",
                 color = if (running) Primary else TextMuted,
                 fontSize = 12.sp, fontWeight = FontWeight.Bold
             )
+            Spacer(Modifier.height(8.dp))
         }
-        Text(text, color = TextMuted, fontSize = 12.sp)
-        Spacer(Modifier.height(6.dp))
+
+        if (done) {
+            Text(
+                when {
+                    p.empty -> "\u0647\u06cc\u0686 \u0633\u0631\u0648\u0631 \u067e\u0627\u0633\u062e\u200c\u06af\u0648\u06cc\u06cc \u067e\u06cc\u062f\u0627 \u0646\u0634\u062f."
+                    p.stopped -> "\u0645\u062a\u0648\u0642\u0641 \u0634\u062f \u2014 ${p.found} \u0633\u0631\u0648\u0631 \u0633\u0627\u0644\u0645 \u0646\u06af\u0647 \u062f\u0627\u0634\u062a\u0647 \u0634\u062f."
+                    else -> "${p.found} \u0633\u0631\u0648\u0631 \u0633\u0627\u0644\u0645 \u067e\u06cc\u062f\u0627 \u0634\u062f."
+                },
+                color = GreenOk, fontSize = 12.sp
+            )
+        } else {
+            StageBar(
+                title = "\u06f1. \u0628\u0631\u0631\u0633\u06cc \u062f\u0633\u062a\u0631\u0633\u06cc",
+                detail = "${p.probed} \u0627\u0632 ${p.total} \u00b7 ${p.reachable} \u067e\u0627\u0633\u062e\u200c\u06af\u0648",
+                fraction = if (p.total > 0) (p.probed.toFloat() / p.total).coerceIn(0f, 1f) else 0f,
+                color = Primary,
+            )
+            Spacer(Modifier.height(8.dp))
+            StageBar(
+                title = "\u06f2. \u0627\u062a\u0635\u0627\u0644 \u0648\u0627\u0642\u0639\u06cc",
+                detail = "${p.realTested} \u0627\u0632 ${p.reachable} \u00b7 ${p.found} \u0633\u0627\u0644\u0645",
+                fraction = if (p.reachable > 0) (p.realTested.toFloat() / p.reachable).coerceIn(0f, 1f) else 0f,
+                color = GreenOk,
+            )
+        }
+    }
+}
+
+/** One stage: a caption row and its own track. */
+@Composable
+private fun StageBar(title: String, detail: String, fraction: Float, color: Color) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(title, color = TextMuted, fontSize = 11.sp)
+            Spacer(Modifier.weight(1f))
+            Text(detail, color = TextMuted, fontSize = 11.sp)
+        }
+        Spacer(Modifier.height(4.dp))
         LinearProgressIndicator(
             progress = fraction,
-            color = if (p.stage == QuickScanner.Stage.DONE) GreenOk else Primary,
+            color = color,
             trackColor = BorderDark,
             modifier = Modifier.fillMaxWidth().height(4.dp).clip(CircleShape)
         )

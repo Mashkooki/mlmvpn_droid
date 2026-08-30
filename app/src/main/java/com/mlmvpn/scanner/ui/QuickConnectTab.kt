@@ -285,12 +285,10 @@ fun QuickConnectTab() {
                 val best = QuickScanner.quickest(
                     context = context,
                     candidates = candidates,
+                    // One line, both stages: they run concurrently, so reporting only whichever
+                    // spoke last is what made the browse screen's single bar jump about.
                     onProgress = { p ->
-                        statusLine = when (p.stage) {
-                            QuickScanner.Stage.TCP -> "جست‌وجو… ${p.open} سرور پاسخ‌گو"
-                            QuickScanner.Stage.DELAY -> "تست اتصال واقعی… ${p.tested} بررسی‌شده"
-                            else -> statusLine
-                        }
+                        statusLine = "جست‌وجو… ${p.reachable} پاسخ‌گو · ${p.realTested} تست‌شده"
                     },
                 )
                 if (best == null) {

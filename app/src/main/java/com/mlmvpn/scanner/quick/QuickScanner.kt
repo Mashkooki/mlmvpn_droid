@@ -58,10 +58,24 @@ object QuickScanner {
 
     enum class Stage { IDLE, TCP, DELAY, DONE }
 
+    /**
+     * Where both halves of the pipeline have got to.
+     *
+     * Every field is always present and always means the same thing, which the first version
+     * got wrong: it reused one `tested` counter for whichever stage happened to emit last, so
+     * a single bar fed from it jumped backwards and forwards between the two stages several
+     * times a second. The two stages run concurrently, so they need two independent readings
+     * and the UI draws a bar for each.
+     */
     data class Progress(
         val stage: Stage,
-        val tested: Int = 0,
-        val open: Int = 0,
+        /** Stage 1: hosts whose port has been probed, out of [total]. */
+        val probed: Int = 0,
+        /** Stage 1: how many of those answered -- and so how many stage 2 has to get through. */
+        val reachable: Int = 0,
+        /** Stage 2: reachable hosts that have been through a real request, out of [reachable]. */
+        val realTested: Int = 0,
+        /** Servers proven to work. */
         val found: Int = 0,
         val total: Int = 0,
         val target: Int = 0,
@@ -231,7 +245,8 @@ object QuickScanner {
                     onProgress(
                         Progress(
                             stage = Stage.DELAY,
-                            tested = realTested.get(), open = reachable.get(),
+                            probed = probed.get(), reachable = reachable.get(),
+                            realTested = realTested.get(),
                             found = synchronized(results) { results.size },
                             total = total, target = want,
                         )
@@ -247,7 +262,8 @@ object QuickScanner {
                 onProgress(
                     Progress(
                         stage = Stage.TCP,
-                        tested = probed.get(), open = reachable.get(),
+                        probed = probed.get(), reachable = reachable.get(),
+                        realTested = realTested.get(),
                         found = synchronized(results) { results.size },
                         total = total, target = want,
                     )
